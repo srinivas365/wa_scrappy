@@ -16,11 +16,10 @@ def to_lowercase(text):
 
 def remove_unicode_chars(text):
     """ To remove the unicode character from the data"""
-    #text=text.encode("utf-8",errors='ignore').decode("utf-8")
-    text=(text.encode('ascii', 'ignore')).decode('utf-8')
+    text=text.encode("utf-8",errors='ignore').decode("utf-8")
     text=re.sub("https?:.*(?=\s)",'',text)
     text=re.sub("’","'",text)
-    text=re.sub(r"[^\x00-\x7f]+",'',text)
+    text=re.sub("[^\x00-\x7f]+",'',text)
     text=re.sub('[?:#%<>,!@&\(\)\\n\\t;]','',text)
     text=re.sub("  *",' ',text)
     return text.strip()
@@ -49,3 +48,42 @@ class HealthlineContentItem(scrapy.Item):
         to_lowercase), output_processor=TakeFirst())
     topic_data = Field(input_processor=MapCompose(
         to_lowercase, remove_unicode_chars), output_processor=TakeFirst())
+
+
+class SephoraPost(scrapy.Item):
+    
+    title=Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    group=Field(output_processor=TakeFirst())
+    time_details=Field()
+    replies_count=Field(output_processor=TakeFirst())
+    views=Field(output_processor=TakeFirst())
+    hearts_count=Field(output_processor=TakeFirst())
+    post=Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    product_urls=Field()
+    replies=Field()
+    
+class SephoraReply(scrapy.Item):
+    reply=Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+
+
+class PoshBeautyItem(scrapy.Item):
+    url = Field(output_processor=TakeFirst())
+    title = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    author = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    categories = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars))
+    tags = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars))
+    date = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    content = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    
+class LorealParisItem(scrapy.Item):
+    url = Field(output_processor=TakeFirst())
+    title = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    category = Field(output_processor=TakeFirst())
+    content = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+
+class FashionLadyItem(scrapy.Item):
+    url = Field(output_processor=TakeFirst())
+    title = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    time = Field(output_processor=TakeFirst())
+    content = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+ 

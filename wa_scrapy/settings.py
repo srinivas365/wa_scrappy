@@ -12,7 +12,10 @@ BOT_NAME = 'wa_scrapy'
 SPIDER_MODULES = ['wa_scrapy.spiders',
                 'wa_scrapy.spiders.amodelrecommends',
                 'wa_scrapy.spiders.sephora',
-                'wa_Scrapy.spiders.healthline']
+                'wa_scrapy.spiders.healthline',
+                'wa_scrapy.spiders.poshbeauty',
+                "wa_scrapy.spiders.lorealparis",
+                "wa_scrapy.spiders.fashionlady"]
 NEWSPIDER_MODULE = 'wa_scrapy.spiders'
 
 

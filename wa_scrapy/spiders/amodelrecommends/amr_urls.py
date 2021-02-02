@@ -10,12 +10,12 @@ class AmrUrls(scrapy.Spider):
 
         # For mongodb Support with URL as primary key in item
 
-        # "ITEM_PIPELINES" : {
-        #     "wa_scrapy.pipelines.MongoPipeline":500 
-        # },
-        # "MONGODB_SERVER" : "localhost:27017",
-        # "MONGODB_DB" : "amodelrecommends",
-        # "OUTPUT_COLLECTION" : "urls"
+        "ITEM_PIPELINES" : {
+            "wa_scrapy.pipelines.MongoPipeline":500 
+        },
+        "MONGODB_SERVER" : "localhost:27017",
+        "MONGODB_DB" : "amodelrecommends",
+        "OUTPUT_COLLECTION" : "urls"
     }
 
 
