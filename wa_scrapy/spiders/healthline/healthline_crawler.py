@@ -2,6 +2,7 @@
 import scrapy
 import json
 from pymongo import MongoClient
+from scrapy_selenium import SeleniumRequest
 
 
 class HealthlineCrawler(scrapy.Spider):
@@ -12,9 +13,10 @@ class HealthlineCrawler(scrapy.Spider):
         "ITEM_PIPELINES" : {
             "wa_scrapy.pipelines.MongoPipeline":500 
         },
-        "MONGODB_SERVER" : "localhost:27017",
+        # "MONGODB_SERVER" : "localhost:27017",
+        "MONGODB_SERVER":"mongodb+srv://srinivas:loveudad@cluster0.traj4.mongodb.net/test?retryWrites=true&w=majority",
         "MONGODB_DB" : "healthline",
-        "OUTPUT_COLLECTION" : "healthline_html"
+        "OUTPUT_COLLECTION" : "hl_html"
     }
     
     def start_requests(self):
@@ -28,16 +30,17 @@ class HealthlineCrawler(scrapy.Spider):
                 url=link['url']
 
                 if self.force == "True":
-                    yield scrapy.Request(url=url, callback=self.parse)
+                    # yield scrapy.Request(url=url, callback=self.parse)
+                    yield SeleniumRequest(url=url,callback=self.parse)
                 else:  # force = false, don't force if it's already present
                     if output_collection.find_one({"url": url}):
                         self.logger.info("already scraped")
                     else:
-                        yield scrapy.Request(url=url, callback=self.parse)
-
+                        # yield scrapy.Request(url=url, callback=self.parse)
+                        yield SeleniumRequest(url=url,callback=self.parse)
     def parse(self, response):
 
         yield {
             "url":response.request.url,
-            "content":str(response.body)
+            "content":response.body.decode("utf-8")
         }

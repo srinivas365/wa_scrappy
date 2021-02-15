@@ -45,5 +45,5 @@ class LorealCrawler(scrapy.Spider):
 
         yield {
             "url":response.request.url,
-            "content":str(response.body)
+            "content":response.body.decode('utf-8')
         }

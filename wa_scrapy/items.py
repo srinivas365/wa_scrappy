@@ -15,15 +15,24 @@ def to_lowercase(text):
 
 
 def remove_unicode_chars(text):
+    # """ To remove the unicode character from the data"""
+    # text=text.encode("utf-8",errors='ignore').decode("utf-8")
+    # text=re.sub("https?:.*(?=\s)",'',text)
+    # text=re.sub("’","'",text)
+    # text=re.sub("[^\x00-\x7f]+",'',text)
+    # text=re.sub('[?:#%<>,!@&\(\)\\n\\t;|$]','',text)
+    # text=re.sub("  *",' ',text)
+    # return text.strip()
+
     """ To remove the unicode character from the data"""
     text=text.encode("utf-8",errors='ignore').decode("utf-8")
     text=re.sub("https?:.*(?=\s)",'',text)
-    text=re.sub("’","'",text)
-    text=re.sub("[^\x00-\x7f]+",'',text)
-    text=re.sub('[?:#%<>,!@&\(\)\\n\\t;]','',text)
+    text=re.sub("[’\"]","'",text)
+    text=re.sub("[^\x00-\x7f]+",' ',text)
+    text=re.sub('[#&\\()*+/:;<=>@[\]^_`{|}~ \t\n\r]',' ',text)
+    # text=re.sub('[!"#&\\()*+,./:;<=>?@[\]^_`{|}~ \t\n\r]',' ',text)
     text=re.sub("  *",' ',text)
     return text.strip()
-
 
 
 class AmrArticle(scrapy.Item):
@@ -35,19 +44,20 @@ class AmrArticle(scrapy.Item):
 
 class HealthlineArticleItem(scrapy.Item):
     """ Acts as JSON Object retrived from Healthline website that stores the article data"""
-    article_name = Field(output_processor=TakeFirst())
+    title = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
     url = Field(output_processor=TakeFirst())
     article_info = Field(output_processor=TakeFirst())
-    content = Field()
+    content=Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+
 
     
 
-class HealthlineContentItem(scrapy.Item):
-    """Acts as JSON Object that stores the paragraph headings and paragraph content """
-    topic_name = Field(input_processor=MapCompose(
-        to_lowercase), output_processor=TakeFirst())
-    topic_data = Field(input_processor=MapCompose(
-        to_lowercase, remove_unicode_chars), output_processor=TakeFirst())
+# class HealthlineContentItem(scrapy.Item):
+#     """Acts as JSON Object that stores the paragraph headings and paragraph content """
+#     topic_name = Field(input_processor=MapCompose(
+#         to_lowercase), output_processor=TakeFirst())
+#     topic_data = Field(input_processor=MapCompose(
+#         to_lowercase, remove_unicode_chars), output_processor=TakeFirst())
 
 
 class SephoraPost(scrapy.Item):
@@ -66,15 +76,7 @@ class SephoraReply(scrapy.Item):
     reply=Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
 
 
-class PoshBeautyItem(scrapy.Item):
-    url = Field(output_processor=TakeFirst())
-    title = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
-    author = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
-    categories = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars))
-    tags = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars))
-    date = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
-    content = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
-    
+   
 class LorealParisItem(scrapy.Item):
     url = Field(output_processor=TakeFirst())
     title = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
@@ -87,3 +89,12 @@ class FashionLadyItem(scrapy.Item):
     time = Field(output_processor=TakeFirst())
     content = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
  
+
+class PoshBeautyItem(scrapy.Item):
+    url = Field(output_processor=TakeFirst())
+    title = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    author = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    categories = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars))
+    tags = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars))
+    date = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    content = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())

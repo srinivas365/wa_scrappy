@@ -36,7 +36,7 @@ class AmrExtractor(scrapy.Spider):
         for html_file in html_files:
             file_id=str(html_file["_id"])
             temp_file=f"temp_files/{file_id}.html"
-            with open(f'./{temp_file}',"w") as file:
+            with open(f'./{temp_file}',"w",encoding="utf-8") as file:
                 file.write(html_file["content"])
             url = f"file:///E:/wish-assimilation/scrapy_crawlers/wa_scrapy/{temp_file}"
             url_exist = output_collection.find_one({"url": html_file["url"]})
