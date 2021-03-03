@@ -23,16 +23,22 @@ class SephoraUrls(scrapy.Spider):
         
         posts=response.xpath("//div[@class='reply-message-wrapper']")
 
-       
         for post in posts:
             post_link = post.css('a.message-subject::attr(href)').get()
             if post_link is not None:
-                yield {'url':post_link}
+                post_id=post_link.split("/")[-1]
+                post_link="https://community.sephora.com"+post_link
+                replies_count=int(post.css("span.replies-count::text").get())
+                replies_count=(replies_count//21)+1
+                for count in range(replies_count):
+                    new_post_link=post_link+"/page/"+str(count)
+                    yield {'url':new_post_link,"post_id":post_id}
 
         just_posts=response.xpath("//div[@class='message-block post']")
         for post in just_posts:
             post_link = post.css('a.message-subject::attr(href)').get()
             if post_link is not None:
+                post_link="https://community.sephora.com"+post_link
                 yield {'url':post_link}
 
         split_url=response.url.split("=")
@@ -46,5 +52,4 @@ class SephoraUrls(scrapy.Spider):
         next_url=None
         if next_rep is not None:
             next_url=split_url[0]+"="+str(next_page)
-
             yield scrapy.Request(next_url,callback=self.parse)
