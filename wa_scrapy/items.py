@@ -106,3 +106,37 @@ class SephoraHtmlItem(scrapy.Item):
 
     def __repr__(self):
         return repr({"url":self["url"],"post_id":self["post_id"]})
+
+
+class FleurdeforceItem(scrapy.Item):
+    url = Field(output_processor=TakeFirst())
+    title = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    content = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+
+class HairbuddhaItem(scrapy.Item):
+    url = Field(output_processor=TakeFirst())
+    title = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    content = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+
+class ArticleItem(scrapy.Item):
+    url = Field(output_processor=TakeFirst())
+    title = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    content = Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+
+class ViviscalArticle(scrapy.Item):
+    url=Field(output_processor=TakeFirst())
+    content=Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    author=Field(output_processor=TakeFirst())
+    title=Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+
+class RichfeelArticle(scrapy.Item):
+    url=Field(output_processor=TakeFirst())
+    content=Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    author=Field(output_processor=TakeFirst())
+    title=Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+
+class MatrixItem(scrapy.Item):
+    url=Field(output_processor=TakeFirst())
+    content=Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())
+    author=Field(output_processor=TakeFirst())
+    title=Field(input_processor=MapCompose(to_lowercase,remove_unicode_chars),output_processor=TakeFirst())

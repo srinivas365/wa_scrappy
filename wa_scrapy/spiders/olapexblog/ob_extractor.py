@@ -1,6 +1,6 @@
 """ To extract from raw HTML content"""
 from pickle import load
-from wa_scrapy.items import AmrArticle
+from wa_scrapy.items import AmrArticle, ArticleItem
 import scrapy
 from pymongo import MongoClient
 from scrapy.utils.project import get_project_settings
@@ -9,9 +9,9 @@ import os
 settings=get_project_settings()
 
 
-class AmrExtractor(scrapy.Spider):
+class ObExtractor(scrapy.Spider):
     """ To scrape the ingredients from EWG"""
-    name = "amr_extractor"
+    name = "ob_extractor"
     
     custom_settings = {
         "ROBOTSTXT_OBEY":"False",
@@ -19,9 +19,9 @@ class AmrExtractor(scrapy.Spider):
             "wa_scrapy.pipelines.MongoPipeline":500 
         },
         "MONGODB_SERVER" : "localhost:27017",
-        "MONGODB_DB" : "amodelrecommends",
-        "INPUT_COLLECTION" : "amr_html",
-        "OUTPUT_COLLECTION":"amr_articles"
+        "MONGODB_DB" : "olapexblog",
+        "INPUT_COLLECTION" : "ob_html",
+        "OUTPUT_COLLECTION":"ob_articles"
     }
     
     def start_requests(self):
@@ -53,11 +53,12 @@ class AmrExtractor(scrapy.Spider):
 
         url=response.meta.get('url')
         author = response.css("span.show-author a::text").get() 
-        title = response.css("h1.entry-title::text").get() 
-        content = response.css("div.entry-content p::text").getall()
+        title = response.css("h1.article-hero__title.h3::text").get().strip()
+        content = response.css("article.article-container span::text").getall()
+        content.extend(response.css("article.article-container p::text").getall())
         content = ' '.join(content)
 
-        loader = ItemLoader(item=AmrArticle(), selector=response)
+        loader = ItemLoader(item=ArticleItem(), selector=response)
         loader.add_value("url",url)
         loader.add_value("author",author)
         loader.add_value("title",title)

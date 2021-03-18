@@ -19,3 +19,4 @@ class HealthlineUrls(scrapy.Spider):
             yield response.follow(next_page, callback=self.parse)
 
     
+    

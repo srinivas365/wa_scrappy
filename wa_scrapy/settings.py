@@ -15,7 +15,21 @@ SPIDER_MODULES = ['wa_scrapy.spiders',
                 'wa_scrapy.spiders.healthline',
                 'wa_scrapy.spiders.poshbeauty',
                 "wa_scrapy.spiders.lorealparis",
-                "wa_scrapy.spiders.fashionlady"]
+                "wa_scrapy.spiders.fashionlady",
+                "wa_scrapy.spiders.reallyree",
+                "wa_scrapy.spiders.fleurdeforce",
+                "wa_scrapy.spiders.hairbuddha",
+                "wa_scrapy.spiders.hairducation",
+                "wa_scrapy.spiders.hypehair",
+                "wa_scrapy.spiders.lisaeldridge",
+                "wa_scrapy.spiders.olapexblog",
+                "wa_scrapy.spiders.viviscal",
+                "wa_scrapy.spiders.carolinehirons",
+                "wa_scrapy.spiders.richfeel",
+                "wa_scrapy.spiders.matrixhair",
+                "wa_scrapy.spiders.luxyhair",
+                "wa_scrapy.spiders.theannaedit"
+                ]
 NEWSPIDER_MODULE = 'wa_scrapy.spiders'
 
 
