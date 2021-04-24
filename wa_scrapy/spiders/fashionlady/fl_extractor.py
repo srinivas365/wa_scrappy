@@ -21,7 +21,7 @@ class FlExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "fashionlady",
         "INPUT_COLLECTION" : "fl_html",
-        "OUTPUT_COLLECTION":"fl_articles"
+        "OUTPUT_COLLECTION":"fl_articles_v2"
     }
     
     def start_requests(self):
@@ -55,8 +55,9 @@ class FlExtractor(scrapy.Spider):
         
         title = response.css("h1.entry-title::text").get() 
         time = response.css("time::text").get()
-        content = response.css("div.td-post-content p::text").getall()
+        content = response.css("div.td-post-content p ::text").getall()
         content = ' '.join(content)
+        
         
         loader = ItemLoader(item=FashionLadyItem(), selector=response)
         loader.add_value("url",url)

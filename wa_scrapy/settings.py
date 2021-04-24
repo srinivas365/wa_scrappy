@@ -28,7 +28,8 @@ SPIDER_MODULES = ['wa_scrapy.spiders',
                 "wa_scrapy.spiders.richfeel",
                 "wa_scrapy.spiders.matrixhair",
                 "wa_scrapy.spiders.luxyhair",
-                "wa_scrapy.spiders.theannaedit"
+                "wa_scrapy.spiders.theannaedit",
+                "wa_scrapy.spiders.seph_frag",
                 ]
 NEWSPIDER_MODULE = 'wa_scrapy.spiders'
 

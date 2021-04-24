@@ -21,7 +21,7 @@ class MatrixExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "matrixhair",
         "INPUT_COLLECTION" : "matrix_html",
-        "OUTPUT_COLLECTION":"matrix_articles"
+        "OUTPUT_COLLECTION":"matrix_articles_v2"
     }
     
     def start_requests(self):

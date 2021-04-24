@@ -21,7 +21,7 @@ class LisaExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "lisaeldridge",
         "INPUT_COLLECTION" : "lisa_html",
-        "OUTPUT_COLLECTION":"lisa_articles"
+        "OUTPUT_COLLECTION":"lisa_articles_v2"
     }
     
     def start_requests(self):

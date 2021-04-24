@@ -20,8 +20,8 @@ class RfExtractor(scrapy.Spider):
         },
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "richfeel",
-        "INPUT_COLLECTION" : "rf_ html",
-        "OUTPUT_COLLECTION":"rf_articles"
+        "INPUT_COLLECTION" : "rf_html",
+        "OUTPUT_COLLECTION":"rf_articles_v2"
     }
     
     def start_requests(self):

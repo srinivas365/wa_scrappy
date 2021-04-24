@@ -21,7 +21,7 @@ class AeExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "theannaedit",
         "INPUT_COLLECTION" : "ae_html",
-        "OUTPUT_COLLECTION":"ae_articles"
+        "OUTPUT_COLLECTION":"ae_articles_v2"
     }
     
     def start_requests(self):

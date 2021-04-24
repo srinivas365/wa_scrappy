@@ -21,7 +21,7 @@ class LorealExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "lorealparis",
         "INPUT_COLLECTION" : "loreal_html",
-        "OUTPUT_COLLECTION":"loreal_articles"
+        "OUTPUT_COLLECTION":"loreal_articles_v2"
     }
     
     def start_requests(self):
@@ -55,10 +55,12 @@ class LorealExtractor(scrapy.Spider):
         
         title = response.css("h1.bm-content-header__title::text").get()
         category = response.css("h2.bm-content-header__subtitle::text").get()
-        content=response.css("div.bm-article-body p.bm-article-body__copy::text").getall()
-        content2=response.css("div.bm-article-body p::text").getall()
-        content.extend(content2)
+        # content=response.css("div.bm-article-body p.bm-article-body__copy::text").getall()
+        # content2=response.css("div.bm-article-body p::text").getall()
+        # content.extend(content2)
+        content = response.xpath("string(//div[@class='bm-article-body'])").getall()
         content = ' '.join(content)
+        content = content.replace("SHARE","",1)
 
 
         loader = ItemLoader(item=LorealParisItem(), selector=response)

@@ -21,7 +21,7 @@ class RrExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "reallyree",
         "INPUT_COLLECTION" : "rr_html",
-        "OUTPUT_COLLECTION":"rr_articles"
+        "OUTPUT_COLLECTION":"rr_articles_v2"
     }
     
     def start_requests(self):

@@ -21,7 +21,7 @@ class ChExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "carolinehirons",
         "INPUT_COLLECTION" : "ch_html",
-        "OUTPUT_COLLECTION":"ch_articles"
+        "OUTPUT_COLLECTION":"ch_articles_v2"
     }
     
     def start_requests(self):
@@ -52,7 +52,7 @@ class ChExtractor(scrapy.Spider):
         # edit this only
         url=response.meta.get('url')
         title = response.css("h1.entry-title::text").get() 
-        content = response.css("div.entry-content p::text").getall()
+        content = response.css("div.entry-content p ::text").getall()
         content = ' '.join(content)
 
         loader = ItemLoader(item=ArticleItem(), selector=response)

@@ -21,7 +21,7 @@ class ObExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "olapexblog",
         "INPUT_COLLECTION" : "ob_html",
-        "OUTPUT_COLLECTION":"ob_articles"
+        "OUTPUT_COLLECTION":"ob_articles_v2"
     }
     
     def start_requests(self):
@@ -54,8 +54,8 @@ class ObExtractor(scrapy.Spider):
         url=response.meta.get('url')
         author = response.css("span.show-author a::text").get() 
         title = response.css("h1.article-hero__title.h3::text").get().strip()
-        content = response.css("article.article-container span::text").getall()
-        content.extend(response.css("article.article-container p::text").getall())
+        content = response.css("article.article-container span ::text").getall()
+        content.extend(response.css("article.article-container p ::text").getall())
         content = ' '.join(content)
 
         loader = ItemLoader(item=ArticleItem(), selector=response)

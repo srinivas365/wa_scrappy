@@ -21,7 +21,7 @@ class VsExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "viviscal",
         "INPUT_COLLECTION" : "vs_html",
-        "OUTPUT_COLLECTION":"vs_articles"
+        "OUTPUT_COLLECTION":"vs_articles_v2"
     }
     
     def start_requests(self):
@@ -54,7 +54,7 @@ class VsExtractor(scrapy.Spider):
         url=response.meta.get('url')
         author = response.css("div#post-time::text").get().strip()
         title = response.css("h1.entry-title::text").get() 
-        content = response.css("div.entry-content p::text").getall()
+        content = response.css("div.entry-content ::text").getall()
         content = ' '.join(content)
 
         loader = ItemLoader(item=ViviscalArticle(), selector=response)

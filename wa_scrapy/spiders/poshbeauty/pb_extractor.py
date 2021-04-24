@@ -21,7 +21,7 @@ class PbExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "poshbeautyblog",
         "INPUT_COLLECTION" : "pb_html",
-        "OUTPUT_COLLECTION":"pb_articles"
+        "OUTPUT_COLLECTION":"pb_articles_v2"
     }
     
     def start_requests(self):
@@ -56,8 +56,8 @@ class PbExtractor(scrapy.Spider):
         categories = response.css("div.categories a::text").getall()
         tags = response.css("div.tags a::text").getall()
         date = response.css("time.published::text").get()  
-        content = response.css("div.sqs-block-content p::text").getall()
-        content=' '.join(content)
+        content = response.css("div.sqs-block-content p:not(:first-child) ::text").getall()
+        content=' '.join(content[1:])
 
         loader = ItemLoader(item=PoshBeautyItem(), selector=response)
         loader.add_value("url",url)

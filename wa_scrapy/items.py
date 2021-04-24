@@ -26,9 +26,9 @@ def remove_unicode_chars(text):
     """ To remove the unicode character from the data"""
     text=text.encode("utf-8",errors='ignore').decode("utf-8")
     text=re.sub("https?:.*(?=\s)",'',text)
-    text=re.sub("[’\"]","'",text)
-    text=re.sub("[^\x00-\x7f]+",' ',text)
-    text=re.sub('[#&\\()*+/:;<=>@[\]^_`{|}~ \t\n\r]',' ',text)
+    text=re.sub("[’‘\"]","'",text)
+    # text=re.sub("[^\x00-\x7f]+",' ',text)
+    text=re.sub('[#&\\()*+/<=>@[\]^`{|}~ \t\n\r]',' ',text)
     # text=re.sub('[!"#&\\()*+,./:;<=>?@[\]^_`{|}~ \t\n\r]',' ',text)
     text=re.sub("  *",' ',text)
     return text.strip()

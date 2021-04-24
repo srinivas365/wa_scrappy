@@ -21,7 +21,7 @@ class FdExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "fleurdeforce",
         "INPUT_COLLECTION" : "fd_html",
-        "OUTPUT_COLLECTION":"fd_articles"
+        "OUTPUT_COLLECTION":"fd_articles_v2"
     }
     
     def start_requests(self):
@@ -53,7 +53,7 @@ class FdExtractor(scrapy.Spider):
 
         url=response.meta.get('url')
         title = response.css("h1.entry-title::text").get() 
-        content = response.css("div.clearfix.entry-content p::text").getall()
+        content = response.css("div.clearfix.entry-content p ::text").getall()
         content = ' '.join(content)
 
         loader = ItemLoader(item=FleurdeforceItem(), selector=response)

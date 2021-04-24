@@ -21,7 +21,7 @@ class LuxyExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "luxyhair",
         "INPUT_COLLECTION" : "luxy_html",
-        "OUTPUT_COLLECTION":"luxy_articles"
+        "OUTPUT_COLLECTION":"luxy_articles_v2"
     }
     
     def start_requests(self):

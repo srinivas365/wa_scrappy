@@ -21,7 +21,7 @@ class HdExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "hairducation",
         "INPUT_COLLECTION" : "hd_html",
-        "OUTPUT_COLLECTION":"hd_articles"
+        "OUTPUT_COLLECTION":"hd_articles_v2"
     }
     
     def start_requests(self):
@@ -53,7 +53,7 @@ class HdExtractor(scrapy.Spider):
 
         url=response.meta.get('url')
         title = response.css("h1.entry-title::text").get() 
-        content = response.css("div.entry-content p::text").getall()
+        content = response.css("div.entry-content p ::text").getall()
         content = ' '.join(content)
 
         loader = ItemLoader(item=ArticleItem(), selector=response)

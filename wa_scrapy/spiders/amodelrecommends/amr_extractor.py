@@ -21,7 +21,7 @@ class AmrExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "amodelrecommends",
         "INPUT_COLLECTION" : "amr_html",
-        "OUTPUT_COLLECTION":"amr_articles"
+        "OUTPUT_COLLECTION":"amr_articles_v2"
     }
     
     def start_requests(self):
@@ -54,7 +54,7 @@ class AmrExtractor(scrapy.Spider):
         url=response.meta.get('url')
         author = response.css("span.show-author a::text").get() 
         title = response.css("h1.entry-title::text").get() 
-        content = response.css("div.entry-content p::text").getall()
+        content = response.css("div.entry-content p ::text").getall()
         content = ' '.join(content)
 
         loader = ItemLoader(item=AmrArticle(), selector=response)
