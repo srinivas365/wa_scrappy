@@ -6,6 +6,7 @@ from pymongo import MongoClient
 from scrapy.utils.project import get_project_settings
 from scrapy.loader import ItemLoader
 import os
+from scrapy_selenium import SeleniumRequest
 settings=get_project_settings()
 
 
@@ -21,7 +22,7 @@ class RrExtractor(scrapy.Spider):
         "MONGODB_SERVER" : "localhost:27017",
         "MONGODB_DB" : "reallyree",
         "INPUT_COLLECTION" : "rr_html",
-        "OUTPUT_COLLECTION":"rr_articles_v2"
+        "OUTPUT_COLLECTION":"rr_articles_v3"
     }
     
     def start_requests(self):
@@ -41,7 +42,7 @@ class RrExtractor(scrapy.Spider):
             url = f"file:///E:/wish-assimilation/scrapy_crawlers/wa_scrapy/{temp_file}"
             url_exist = output_collection.find_one({"url": html_file["url"]})
             if self.force == "True" or not url_exist:
-                yield scrapy.Request(url=url, callback=self.parse,
+                yield SeleniumRequest(url=url, callback=self.parse,
                                      meta={"url": html_file["url"], "temp_file": temp_file})
             else:
                 self.logger.info("URL has been extracted already")
@@ -53,7 +54,8 @@ class RrExtractor(scrapy.Spider):
 
         url=response.meta.get('url')
         title = response.css("h1.entry-title span::text").get() 
-        content = response.css("div.content.site-content-block.jpibfi_container p ::text").getall()
+        # content = response.css("div.content.site-content-block.jpibfi_container p::text").getall()
+        content = response.css("div.entry-content p ::text").getall()
         content = ' '.join(content)
 
         loader = ItemLoader(item=ArticleItem(), selector=response)

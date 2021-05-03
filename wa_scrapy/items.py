@@ -28,7 +28,7 @@ def remove_unicode_chars(text):
     text=re.sub("https?:.*(?=\s)",'',text)
     text=re.sub("[’‘\"]","'",text)
     # text=re.sub("[^\x00-\x7f]+",' ',text)
-    text=re.sub('[#&\\()*+/<=>@[\]^`{|}~ \t\n\r]',' ',text)
+    text=re.sub('[#&\\*+/<=>@[\]^`{|}~ \t\n\r]',' ',text)
     # text=re.sub('[!"#&\\()*+,./:;<=>?@[\]^_`{|}~ \t\n\r]',' ',text)
     text=re.sub("  *",' ',text)
     return text.strip()

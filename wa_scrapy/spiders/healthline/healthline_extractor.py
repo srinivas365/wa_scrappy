@@ -18,8 +18,8 @@ class HealthlineExtractor(scrapy.Spider):
         "ITEM_PIPELINES" : {
             "wa_scrapy.pipelines.MongoPipeline":500 
         },
-        # "MONGODB_SERVER" : "localhost:27017",
-        "MONGODB_SERVER":"mongodb+srv://srinivas:loveudad@cluster0.traj4.mongodb.net/test?retryWrites=true&w=majority",
+        "MONGODB_SERVER" : "localhost:27017",
+        # "MONGODB_SERVER":"mongodb+srv://srinivas:loveudad@cluster0.traj4.mongodb.net/test?retryWrites=true&w=majority",
         "MONGODB_DB" : "healthline",
         "INPUT_COLLECTION" : "hl_html",
         "OUTPUT_COLLECTION":"hl_articles"
@@ -60,7 +60,7 @@ class HealthlineExtractor(scrapy.Spider):
                 #     item=HealthlineContentItem(), selector=topic)
                 # content_loader.add_css("topic_name", "a::attr(name)")
                 topic_data = topic.xpath(".//text()").getall()
-                topic_data = ''.join(topic_data[1:])
+                topic_data = ' '.join(topic_data[1:])
                 # content_loader.add_value("topic_data", topic_data)
                 topics.append(topic_data)
             

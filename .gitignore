@@ -3,3 +3,4 @@
 /.vscode
 /wa_scrapy/__pycache__
 /v2_data
+__pycache__/
