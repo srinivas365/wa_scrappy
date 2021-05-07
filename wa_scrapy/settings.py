@@ -10,33 +10,34 @@
 BOT_NAME = 'wa_scrapy'
 
 SPIDER_MODULES = ['wa_scrapy.spiders',
-                'wa_scrapy.spiders.amodelrecommends',
-                'wa_scrapy.spiders.sephora',
-                'wa_scrapy.spiders.healthline',
-                'wa_scrapy.spiders.poshbeauty',
-                "wa_scrapy.spiders.lorealparis",
-                "wa_scrapy.spiders.fashionlady",
-                "wa_scrapy.spiders.reallyree",
-                "wa_scrapy.spiders.fleurdeforce",
-                "wa_scrapy.spiders.hairbuddha",
-                "wa_scrapy.spiders.hairducation",
-                "wa_scrapy.spiders.hypehair",
-                "wa_scrapy.spiders.lisaeldridge",
-                "wa_scrapy.spiders.olapexblog",
-                "wa_scrapy.spiders.viviscal",
-                "wa_scrapy.spiders.carolinehirons",
-                "wa_scrapy.spiders.richfeel",
-                "wa_scrapy.spiders.matrixhair",
-                "wa_scrapy.spiders.luxyhair",
-                "wa_scrapy.spiders.theannaedit",
-                "wa_scrapy.spiders.seph_frag",
+#                 'wa_scrapy.spiders.amodelrecommends',
+#                 'wa_scrapy.spiders.sephora',
+#                 'wa_scrapy.spiders.healthline',
+#                 'wa_scrapy.spiders.poshbeauty',
+#                 "wa_scrapy.spiders.lorealparis",
+#                 "wa_scrapy.spiders.fashionlady",
+#                 "wa_scrapy.spiders.reallyree",
+#                 "wa_scrapy.spiders.fleurdeforce",
+#                 "wa_scrapy.spiders.hairbuddha",
+#                 "wa_scrapy.spiders.hairducation",
+#                 "wa_scrapy.spiders.hypehair",
+#                 "wa_scrapy.spiders.lisaeldridge",
+#                 "wa_scrapy.spiders.olapexblog",
+#                 "wa_scrapy.spiders.viviscal",
+#                 "wa_scrapy.spiders.carolinehirons",
+#                 "wa_scrapy.spiders.richfeel",
+#                 "wa_scrapy.spiders.matrixhair",
+#                 "wa_scrapy.spiders.luxyhair",
+#                 "wa_scrapy.spiders.theannaedit",
+#                 "wa_scrapy.spiders.seph_frag",
+                "wa_scrapy.spiders.containerstore"
                 ]
 NEWSPIDER_MODULE = 'wa_scrapy.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'wa_scrapy (+http://www.yourdomain.com)'
-
+USER_AGENT = "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:38.0) Gecko/20100101 Firefox/38.0"
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
@@ -114,6 +115,10 @@ SELENIUM_DRIVER_EXECUTABLE_PATH = 'chromedriver.exe'
 SELENIUM_DRIVER_ARGUMENTS=['--headless','--no-sandbox','--disable-gpu']  # '--headless' if using chrome instead of firefox
 
 DOWNLOADER_MIDDLEWARES = {
+    # 'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    # 'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+    # 'scrapy_fake_useragent.middleware.RandomUserAgentMiddleware': 400,
+    # 'scrapy_fake_useragent.middleware.RetryUserAgentMiddleware': 401,
     # 'scrapy_splash.SplashCookiesMiddleware': 723,
     # 'scrapy_splash.SplashMiddleware': 725,
     'scrapy_selenium.SeleniumMiddleware': 800,
